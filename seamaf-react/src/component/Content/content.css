@@ -1,6 +1,28 @@
-.content {
-  color: #fff;
-  width: 100%;
-  height: 400px;
-  background-color: blue;
+.each-slide > div {
+  display: flex;
+  align-items: center;
+  background-size: cover;
+  height: 350px;
+  background-position: top center;
+}
+
+.title-slider {
+  margin-left: 5%;
+}
+
+
+.feedback {
+  height: 250px;
+  background-position: top center;
+  background-size: cover;
+  border-radius: 10px;
+  margin-top: 2%;
+}
+
+.title-feedback {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 4%;
 }
