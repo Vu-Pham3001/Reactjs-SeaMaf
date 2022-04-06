@@ -104,7 +104,7 @@ export default function ResponsiveStack() {
                                 </Typography>
 
                                 <AboutImg>
-                                    <img src='assets/img/card-about-footer.png' alt="card" width="95%" />
+                                    <img src='/assets/img/card-about-footer.png' alt="card" width="95%" />
                                 </AboutImg>
                             </Blog>
                             <Blog>
@@ -197,7 +197,7 @@ export default function ResponsiveStack() {
                                     sx={{display:{md:'flex', sm:'flex', xs:'flex'}}}
                                 >
                                     <BlogImg>
-                                        <img src="assets/img/blog-footer.jpg" alt='blog' width='100%' height='100%' />
+                                        <img src="/assets/img/blog-footer.jpg" alt='blog' width='100%' height='100%' />
                                     </BlogImg>
 
                                     <BlogRight>
@@ -211,7 +211,7 @@ export default function ResponsiveStack() {
                                     sx={{display:{md:'flex', sm:'flex', xs:'flex'}}}
                                 >
                                     <BlogImg>
-                                        <img src="assets/img/blog-footer2.jpg" alt='blog' width='100%' height='100%' />
+                                        <img src="/assets/img/blog-footer2.jpg" alt='blog' width='100%' height='100%' />
                                     </BlogImg>
 
                                     <BlogRight>

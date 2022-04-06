@@ -5,13 +5,14 @@ import Header from './component/Header/Header';
 import Content from './component/Content/Content';
 import Footer from './component/Footer/Footer';
 import HeaderBot from './component/Header/HeaderBot';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
     <div className="App">
         <Header />
         <HeaderBot />
-        <Content />
+        <Outlet />
         <Footer />
     </div>
   );

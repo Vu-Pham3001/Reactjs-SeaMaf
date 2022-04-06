@@ -91,12 +91,14 @@
 import React from "react";
 import { AppBar, Container } from "@mui/material";
 import { Box } from "@mui/system";
+import { Link } from "react-router-dom";
 import './header.css';
 
-const styleNavLink = {color: '#fff', textDecoration:'none', }
+const styleNavLink = {color: '#fff', textDecoration:'none'}
 
 export default function HeaderBot() {
     return(
+
         <AppBar position="static"
             sx={{display: {backgroundColor: '#282828',}}}
         >
@@ -104,28 +106,28 @@ export default function HeaderBot() {
                 <Box>
                     <ul className="nav-link">
                         <li>
-                            <a href="/" style={styleNavLink}>Home</a>
+                            <Link to='/' style={styleNavLink}>Home</Link>
                         </li>
                         <li>
-                            <a href="#" style={styleNavLink}>Our Shop</a>
+                            <Link to='/shop' style={styleNavLink}>Our Shop</Link>
                         </li>
                         <li>
-                            <a href="#" style={styleNavLink}>On Sale</a>
+                            <Link to='#' style={styleNavLink}>On Sale</Link>
                         </li>
                         <li>
-                            <a href="#" style={styleNavLink}>Our Services</a>
+                            <Link to='#' style={styleNavLink}>Our Services</Link>
                         </li>
                         <li>
-                            <a href="#" style={styleNavLink}>Blog</a>
+                            <Link to='#' style={styleNavLink}>Blog</Link>
                         </li>
                         <li>
-                            <a href="#" style={styleNavLink}>Contact</a>
+                            <Link to='#' style={styleNavLink}>Contact</Link>
                         </li>
                         <li>
-                            <a href="/login" style={styleNavLink}>Signin</a>
+                            <Link to='/login' style={styleNavLink}>Signin</Link>
                         </li>
                         <li>
-                            <a href="/register" style={styleNavLink}>Signup</a>
+                            <Link to='/register' style={styleNavLink}>Signup</Link>
                         </li>
                     </ul>
                 </Box>

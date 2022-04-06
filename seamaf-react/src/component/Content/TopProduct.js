@@ -1,15 +1,26 @@
-import React from "react";
-import { Container } from "@mui/material";
+import React, { useState } from "react";
+import axios from "axios";
+import { Container} from "@mui/material";
 import { Grid } from "@mui/material";
 import { styled } from "@mui/system";
 import { Typography } from "@mui/material";
 import './content.css';
+import { Link } from "react-router-dom";
 
 const Item = styled('div')(({theme}) => ({
     background:'aqua',
 }));
 
 export default function TopProduct() {
+    const [products, setProducts] = useState([])
+
+    React.useEffect(() => {
+        axios.get('http://localhost:8000/')
+        .then(res => {
+            setProducts(res.data?.[1])
+        })
+    })
+
     return(
         <Container>
             <Typography
@@ -18,94 +29,22 @@ export default function TopProduct() {
                 BROWSE TOP SELLING PRODUCTS
             </Typography>
             <Grid container spacing={2}>
-                <Grid item xs={6} sm={4} md={3}
-                    sx={{display:{marginTop:'4%'}}}
-                >
-                    <a href="#">
-                        <img className="product-latest" src="assets/img/product-list.webp" alt="" width='98%' height='98%' />
-                    </a>
-                    <div style={{display:'flex', position:'relative'}}>
-                        <p>Ring basket white (small)</p>
-                        <p style={{display:'block', position:'absolute', right:'10px'}}>$ 3.0</p>
-                    </div>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3}
-                    sx={{display:{marginTop:'4%'}}}
-                >
-                    <a href="#">
-                        <img className="product-latest" src="assets/img/product-list.webp" alt="" width='98%' height='98%' />
-                    </a>
-                    <div style={{display:'flex', position:'relative'}}>
-                        <p>Ring basket white (small)</p>
-                        <p style={{display:'block', position:'absolute', right:'10px'}}>$ 3.0</p>
-                    </div>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3}
-                    sx={{display:{marginTop:'4%'}}}
-                >
-                    <a href="#">
-                        <img className="product-latest" src="assets/img/product-list.webp" alt="" width='98%' height='98%' />
-                    </a>
-                    <div style={{display:'flex', position:'relative'}}>
-                        <p>Ring basket white (small)</p>
-                        <p style={{display:'block', position:'absolute', right:'10px'}}>$ 3.0</p>
-                    </div>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3}
-                    sx={{display:{marginTop:'4%'}}}
-                >
-                    <a href="#">
-                        <img className="product-latest" src="assets/img/product-list.webp" alt="" width='98%' height='98%' />
-                    </a>
-                    <div style={{display:'flex', position:'relative'}}>
-                        <p>Ring basket white (small)</p>
-                        <p style={{display:'block', position:'absolute', right:'10px'}}>$ 3.0</p>
-                    </div>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3}
-                    sx={{display:{marginTop:'4%'}}}
-                >
-                    <a href="#">
-                        <img className="product-latest" src="assets/img/product-list.webp" alt="" width='98%' height='98%' />
-                    </a>
-                    <div style={{display:'flex', position:'relative'}}>
-                        <p>Ring basket white (small)</p>
-                        <p style={{display:'block', position:'absolute', right:'10px'}}>$ 3.0</p>
-                    </div>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3}
-                    sx={{display:{marginTop:'4%'}}}
-                >
-                    <a href="#">
-                        <img className="product-latest" src="assets/img/product-list.webp" alt="" width='98%' height='98%' />
-                    </a>
-                    <div style={{display:'flex', position:'relative'}}>
-                        <p>Ring basket white (small)</p>
-                        <p style={{display:'block', position:'absolute', right:'10px'}}>$ 3.0</p>
-                    </div>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3}
-                    sx={{display:{marginTop:'4%'}}}
-                >
-                    <a href="#">
-                        <img className="product-latest" src="assets/img/product-list.webp" alt="" width='98%' height='98%' />
-                    </a>
-                    <div style={{display:'flex', position:'relative'}}>
-                        <p>Ring basket white (small)</p>
-                        <p style={{display:'block', position:'absolute', right:'10px'}}>$ 3.0</p>
-                    </div>
-                </Grid>
-                <Grid item xs={6} sm={4} md={3}
-                    sx={{display:{marginTop:'4%'}}}
-                >
-                    <a href="#">
-                        <img className="product-latest" src="assets/img/product-list.webp" alt="" width='98%' height='98%' />
-                    </a>
-                    <div style={{display:'flex', position:'relative'}}>
-                        <p>Ring basket white (small)</p>
-                        <p style={{display:'block', position:'absolute', right:'10px'}}>$ 3.0</p>
-                    </div>
-                </Grid>
+                {products.map(product => (
+                    <Grid item xs={6} sm={4} md={3}
+                        sx={{display:{marginTop:'4%'}}}
+                    >
+                        <div key={product.id}>
+                            <Link to={`/product-detail/${product.id}`} >
+                                <img className="product-latest" src={`http://localhost:8000/images/${product.img}`} alt="" width='98%' height='98%' />
+                            </Link>
+
+                            <div style={{display:'flex', position:'relative'}}>
+                                <p>{product.name}</p>
+                                <p style={{display:'block', position:'absolute', right:'10px'}}>$ {product.price}</p>
+                            </div>
+                        </div>
+                    </Grid>
+                ))}
             </Grid>
         </Container>
     );

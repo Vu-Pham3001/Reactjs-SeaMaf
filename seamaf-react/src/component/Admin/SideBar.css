@@ -1,0 +1,23 @@
+.box-pages {
+  display: none;
+}
+
+.box-dashboard {
+  display: none;
+}
+
+.box-dashboard-block {
+  display: block;
+}
+
+.box-pages-block{
+  display: block;
+}
+
+.title-pages {
+  width: 100%;
+}
+
+.title-pages:hover {
+  cursor: pointer;
+}
