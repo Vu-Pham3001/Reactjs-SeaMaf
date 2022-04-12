@@ -10,7 +10,7 @@ export default function Admin() {
     return(
         <Box>
             <Grid container spacing={2}
-                sx={{display:{height:'500px'}}}
+                sx={{display:{height:'650px'}}}
             >
                 <SideBar />
                 <Outlet />

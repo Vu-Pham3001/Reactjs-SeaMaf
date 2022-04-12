@@ -12,6 +12,8 @@ import ProductDetail from './component/Product/ProductDetail'
 import Admin from './component/Admin/Admin';
 import ListProduct from './component/Admin/ListProduct';
 import AddProduct from './component/Admin/AddProduct';
+import ListUSer from './component/Admin/ListUser';
+import EditProduct from './component/Admin/EditProduct';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,9 +28,14 @@ ReactDOM.render(
             <Route path=":id" element={<ProductDetail />} />
           </Route>
         </Route>
+
         <Route path='/admin' element={<Admin />}>
-          <Route path='/admin/list-product' element={<ListProduct />} />
-          <Route path='/admin/add-product' element={<AddProduct />} />
+          <Route path='listproduct' element={<ListProduct />} />
+          <Route path='addproduct' element={<AddProduct />} />
+          <Route path='editproduct' element={<Outlet />}>
+            <Route path=':id' element={<EditProduct />} />
+          </Route>
+          <Route path='listuser' element={<ListUSer />} />
         </Route>
       </Routes>
     </BrowserRouter>

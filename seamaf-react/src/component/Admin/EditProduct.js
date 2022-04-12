@@ -1,54 +1,69 @@
 import React from 'react';
-import {Box, Grid, styled, Stack, Typography, Button } from "@mui/material";
+import {Box, Grid, styled, Stack, Typography } from "@mui/material";
 import axios from 'axios';
 import { useState, useEffect  } from 'react';
-import { TextField } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
-export default function AddProduct() {
+export default function EditProduct() {
+    const params = useParams()
 
-    const param = useParams()
+    useEffect(() => {
+        axios.get("http://localhost:8000/api/admin/listmenu/edit/" + params.id)
+            .then(res => {
+                setName(res.data.name)
+                setCode(res.data.code)
+                setDescription(res.data.description)
+                setPrice(res.data.price)
+                setSale(res.data.sale)
+                setIsTop(res.data.is_top)
+                setCategoriId(res.data.categori_id)
+            })
+            
+    }, [params])
+    
+    const [name, setName] = useState([])
 
-    const [name, setName] = useState('')
+    const [code, setCode] = useState()
 
-    const [code, setCode] = useState('')
-
-    const [description, setDescription] = useState('')
+    const [description, setDescription] = useState()
 
     const [img, setImg] = useState([])
 
-    const [price, setPrice] = useState('')
+    const [price, setPrice] = useState()
 
-    const [sale, setSale] = useState('')
+    const [sale, setSale] = useState()
 
-    const [isTop, setIsTop] = useState('')
+    const [isTop, setIsTop] = useState()
 
-    const [categoriId, setCategoriId] = useState('')
+    const [categoriId, setCategoriId] = useState()
 
-    const handleCreateProduct = async() => {
-        const createFormData = new FormData();
-        createFormData.append('name', name)
-        createFormData.append('code' , code)
-        createFormData.append('description' , description)
-        createFormData.append('price' , price)
-        createFormData.append('sale' , sale)
-        createFormData.append('is_top' , isTop)
-        createFormData.append('categori_id', categoriId)
+    const handleUpdateProduct = async() => {
+        const updateFormData = new FormData();
+        updateFormData.append('name', name)
+        updateFormData.append('code' , code)
+        updateFormData.append('description' , description)
+        updateFormData.append('price' , price)
+        updateFormData.append('sale' , sale)
+        updateFormData.append('is_top' , isTop)
+        updateFormData.append('categori_id', categoriId)
 
         const response = await axios({
             method: "post",
-            url: "http://localhost:8000/api/admin/add-store",
-            data: createFormData,
+            url: "http://localhost:8000/api/admin/listmenu/update/" + params.id,
+            data: updateFormData,
             headers: { "Content-Type": "multipart/form-data" },
-        })
-        .then(res => (alert('Tao danh muc thanh cong')))
+        }, [params])
+        .then(res => (alert('Sua danh muc thanh cong')))
+
     }
+
     return(
         <Grid item xs={9} sm={9} md={9}>
             <Typography
                 sx={{color: '#000', fontSize: '24px', fontWeight: '700', marginTop: '2%'}}
             >
-                Thêm sản phẩm
+                Sửa sản phẩm
             </Typography>
             <Stack direction="row" spacing={2}>
                 <Box
@@ -56,23 +71,23 @@ export default function AddProduct() {
                 >
                     <TextField
                         placeholder='Name'
-                        name='name'
                         value={name}
+                        name='name'
                         type="text"
                         sx={{marginTop: '3%', width:'85%'}}
                         onChange={(event) => setName(event.target.value)}
                     />
                     <TextField
                         placeholder='Code'
-                        value={code}
                         name='code'
+                        value={code}
                         type="text"
                         sx={{marginTop: '3%', width:'85%'}}
                         onChange={(event) => setCode(event.target.value)}
                     />
                     <TextField
-                        name='description'
                         placeholder='Description'
+                        name='description'
                         value={description}
                         type="text"
                         sx={{marginTop: '3%', width:'85%'}}
@@ -81,7 +96,6 @@ export default function AddProduct() {
                     <TextField
                         type="file"
                         name='img'
-                        // value={img}
                         sx={{marginTop: '3%', width:'85%'}}
                         onChange={(event) => setImg(event.target.files[0])}
                     />
@@ -100,7 +114,7 @@ export default function AddProduct() {
                     />
                     <TextField
                         placeholder='Sale'
-                        name='sale'
+                        name='price'
                         value={sale}
                         type="text"
                         sx={{marginTop: '3%', width:'85%'}}
@@ -124,15 +138,15 @@ export default function AddProduct() {
                     />
                 </Box>
             </Stack>
-
             <Button
                 variant='contained'
                 sx={{marginTop: '3%'}}
                 type="button"
-                onClick={handleCreateProduct}
+                onClick={handleUpdateProduct}
             >
-                Xác nhận
+                Cập nhật
             </Button>
         </Grid>
+        
     );
 }

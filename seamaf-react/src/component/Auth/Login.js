@@ -3,8 +3,10 @@ import { Container, Grid, Link, Stack, Typography } from '@mui/material';
 import { Checkbox } from '@mui/material';
 import { FormControlLabel } from '@mui/material';
 import { Button } from '@mui/material';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Login.css';
 
 const ImgCardLogin = styled('div')(({theme}) => ({
@@ -37,12 +39,26 @@ const Remember = styled('div')(({theme}) =>({
     width: '85%',
 }));
 
-const LoginWith = styled('div')(({theme}) =>({
-    
-}));
-
-
 export default function Login() {
+    const [email, setEmail] = useState('')
+
+    const [password, setPassword] = useState('')
+
+    const navigate = useNavigate()
+
+    const handleLogin = () => {
+        axios.post('http://localhost:8000/api/login', {email:email, password:password})
+            .then(res=>{
+                let token = res['data']['token']
+
+                if(token != false){
+                    localStorage.setItem('token', token)
+                    navigate('/', {state:{data: token}})
+                } else {
+                    alert('login failed')
+                }
+            })
+    }
     return(
         <div className='login'>
             <Container>
@@ -56,17 +72,23 @@ export default function Login() {
                     </ImgCardLogin>
                     <CardBody>
                         <div className="title-login" style={{fontSize:'24px', fontWeight:'600'}}>Login to your account</div>
+                        
                         <TextField
                             id="outlined-password-input"
                             label="Email"
+                            value={email}
+                            onChange={(e)=>setEmail(e.target.value)}
                             placeholder='Email Address'
                             type="text"
+                            
                             sx={{display: { marginTop: '3%', width: '85%'}}}
                         />
 
                         <TextField
                             id="outlined-password-input"
                             label="Password"
+                            value={password}
+                            onChange={(e) =>setPassword(e.target.value)}
                             placeholder='PassWord'
                             type="password"
                             autoComplete="current-password"
@@ -82,6 +104,8 @@ export default function Login() {
                         <Button
                             variant="contained"
                             sx={{background:'#f51167', width: '85%', marginTop: '10%'}}
+                            type="button"
+                            onClick={handleLogin}
                         >
                             Login
                         </Button>

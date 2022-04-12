@@ -34,7 +34,7 @@ export default function SideBar() {
                         Dashboard
                         <ul className="box-dashboard">
                             <li style={{listStyle:'none', marginTop:'2%'}}>
-                                <Link to="#" style={{color:'#fff', textDecoration:'none'}}>Default</Link>
+                                <Link to="/" style={{color:'#fff', textDecoration:'none'}}>Home</Link>
                             </li>
                             <li style={{listStyle:'none', marginTop:'2%'}}>
                                 <Link to="#" style={{color:'#fff', textDecoration:'none'}}>Analytics</Link>
@@ -48,13 +48,16 @@ export default function SideBar() {
                         Pages
                         <ul className="box-pages">
                             <li style={{listStyle:'none', marginTop:'2%'}}>
-                                <Link to="/admin/add-product" style={{color:'#fff', textDecoration:'none'}}>Add Product</Link>
+                                <Link to="addproduct" style={{color:'#fff', textDecoration:'none'}}>Add Product</Link>
                             </li>
                             <li style={{listStyle:'none', marginTop:'2%'}}>
-                                <Link to="/admin/list-product" style={{color:'#fff', textDecoration:'none'}}>List Product</Link>
+                                <Link to="listproduct" style={{color:'#fff', textDecoration:'none'}}>List Product</Link>
                             </li>
                             <li style={{listStyle:'none', marginTop:'2%'}}>
-                                <Link to="#" style={{color:'#fff', textDecoration:'none'}}>List User</Link>
+                                <Link to="editproduct" style={{color:'#fff', textDecoration:'none'}}>Edit Product</Link>
+                            </li>
+                            <li style={{listStyle:'none', marginTop:'2%'}}>
+                                <Link to="listuser" style={{color:'#fff', textDecoration:'none'}}>List User</Link>
                             </li>
                         </ul>
                     </li>

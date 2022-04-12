@@ -91,12 +91,13 @@
 import React from "react";
 import { AppBar, Container } from "@mui/material";
 import { Box } from "@mui/system";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import './header.css';
 
 const styleNavLink = {color: '#fff', textDecoration:'none'}
 
 export default function HeaderBot() {
+    const location = useLocation()
     return(
 
         <AppBar position="static"
@@ -123,6 +124,7 @@ export default function HeaderBot() {
                         <li>
                             <Link to='#' style={styleNavLink}>Contact</Link>
                         </li>
+                        
                         <li>
                             <Link to='/login' style={styleNavLink}>Signin</Link>
                         </li>

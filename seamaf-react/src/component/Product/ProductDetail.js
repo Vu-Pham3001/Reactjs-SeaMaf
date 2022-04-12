@@ -6,23 +6,25 @@ import { Button, Container, Grid, Typography } from "@mui/material";
 
 
 export default function ProductDetail() {
-    const param = useParams()
+    const params = useParams()
 
     const [proDetail, setProDetail] = useState([])
 
     const [cates, setCates] = useState([])
     React.useEffect(() => {
-        axios.get('http://localhost:8000/product/' + param.id)
+        axios.get('http://localhost:8000/api/product/' + params.id)
         .then(res =>  {
             setProDetail(res.data?.[0])
             setCates(res.data?.[1])
         })
-    }, [param])
+    }, [params])
 
-    const handleAddCart = () => {
-        axios.post('http://localhost:8000/user/addcart', {
-            param: {
-                product_id : param.id,
+    const handleAddCart = (id) => {
+        axios.post('http://localhost:8000/user/addcart' + id, {
+            data: {
+                product_id : 45,
+                status: 1,
+                quanlity:1
             }
         })
     }
@@ -52,7 +54,7 @@ export default function ProductDetail() {
                     <p>Availability: In Stock</p>
                     <Button
                         sx={{display:{backgroundColor:'#f51167', width:'30%'} }}
-                        onClick={handleAddCart}
+                        onClick={handleAddCart(proDetail.id)}
                     >
                         {/* <Link>ADD TO CART</Link> */}
                         ADD TO CART

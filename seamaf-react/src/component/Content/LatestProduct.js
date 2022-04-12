@@ -9,16 +9,17 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 export default function LatestProduct() {
-    const [product, setProduct] = useState([])
+    const [products, setProducts] = useState([])
 
     useEffect(() => {
         axios.get('http://localhost:8000/')
         .then(res => {
             return(
-                setProduct(res.data?.[0])
+                setProducts(res.data?.[0])
             )
         })
     }, [])
+    // console.log(products)
 
     const settings = {
         dots: true,
@@ -55,17 +56,17 @@ export default function LatestProduct() {
                 Latest Product
             </Typography>
             <Slider {...settings}>
-                {product.map(products => (
-                    <div key={products.id}>
+                {products.map(product => (
+                    <div key={product.id}>
                         <Grid item xs={6} sm={4} md={3}
                             sx={{display:{marginLeft:'2%', marginTop:'5%'}}}
                         >
-                            <Link to={`/product-detail/${products.id}`}>
-                                <img className="product-latest" src={`http://localhost:8000/images/${products.img}`} alt={products.img} width='98%' height='98%' />
+                            <Link to={`/product-detail/${product.id}`}>
+                                <img className="product-latest" src={`http://localhost:8000/images/${product.img}`} alt={product.img} width='98%' height='98%' />
                             </Link>
                             <div style={{display:'flex', position:'relative'}}>
-                                <p>{products.name}</p>
-                                <p style={{display:'block', position:'absolute', right:'10px'}}>$ {products.price}</p>
+                                <p>{product.name}</p>
+                                <p style={{display:'block', position:'absolute', right:'10px'}}>$ {product.price}</p>
                             </div>
                         </Grid>
                     </div>
