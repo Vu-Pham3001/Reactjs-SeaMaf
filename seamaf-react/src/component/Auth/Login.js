@@ -49,13 +49,14 @@ export default function Login() {
     const handleLogin = () => {
         axios.post('http://localhost:8000/api/login', {email:email, password:password})
             .then(res=>{
+                let user = res['data']['user']
                 let token = res['data']['token']
-
                 if(token != false){
                     localStorage.setItem('token', token)
+                    localStorage.setItem('user', JSON.stringify(user))
                     navigate('/', {state:{data: token}})
                 } else {
-                    alert('login failed')
+                    alert('dang nhap that bai')
                 }
             })
     }

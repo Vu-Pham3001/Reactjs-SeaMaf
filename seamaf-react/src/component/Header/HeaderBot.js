@@ -92,14 +92,35 @@ import React from "react";
 import { AppBar, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import { Link, useLocation } from "react-router-dom";
+import { Fragment, useState } from "react";
+import { Button } from "@mui/material";
+import { Typography, MenuItem, Menu } from "@mui/material";
 import './header.css';
 
 const styleNavLink = {color: '#fff', textDecoration:'none'}
 
 export default function HeaderBot() {
     const location = useLocation()
-    return(
 
+    const token = localStorage.getItem('token')
+
+    const user = JSON.parse(localStorage.getItem('user'))
+
+    const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+    const handleOpenUser = (event) => {
+        setAnchorElUser(event.currentTarget);
+    }
+
+    const handleCloseUser = () => {
+        setAnchorElUser(null);
+    };
+
+    const handleLogout = () => {
+        localStorage.clear();
+        window.location.href = '/';
+    }
+    return(
         <AppBar position="static"
             sx={{display: {backgroundColor: '#282828',}}}
         >
@@ -124,13 +145,58 @@ export default function HeaderBot() {
                         <li>
                             <Link to='#' style={styleNavLink}>Contact</Link>
                         </li>
-                        
-                        <li>
-                            <Link to='/login' style={styleNavLink}>Signin</Link>
-                        </li>
-                        <li>
-                            <Link to='/register' style={styleNavLink}>Signup</Link>
-                        </li>
+                        {user ?
+                            <li>
+                                <Button
+                                    sx={{color:'#fff'}}
+                                    onClick={handleOpenUser}
+                                >
+                                    {user.name}
+                                </Button>
+
+                                <Menu
+                                    sx={{ mt: '45px' }}
+                                    id="menu-appbar"
+                                    anchorEl={anchorElUser}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={handleCloseUser}
+                                >
+                                    {user.is_admin === 1 ?
+                                        <Link to='/admin' style={{textDecoration:'none'}}><Typography textAlign="center" color="#000">Profile</Typography></Link> :
+                                        <Link to='/user' style={{textDecoration:'none'}}><Typography textAlign="center" color="#000">Profile</Typography></Link>
+                                    }
+                                    <MenuItem onClick={handleCloseUser}>
+                                        <Typography textAlign="center" width="100%">Account</Typography>
+                                    </MenuItem>
+
+                                    <MenuItem onClick={handleCloseUser}>
+                                        <Typography textAlign="center" width="100%">Dashboard</Typography>
+                                    </MenuItem>
+
+                                    <MenuItem onClick={handleLogout}>
+                                        <Typography textAlign="center" >Logout</Typography>
+                                    </MenuItem>
+                                </Menu>
+                            </li> :
+                            <Fragment>
+                                <li>
+                                    <Link to='/login' style={styleNavLink} >Signin</Link>
+                                </li>
+
+                                <li>
+                                    <Link to='/register' style={styleNavLink}>Signup</Link>
+                                </li>
+                            </Fragment>
+                        }
                     </ul>
                 </Box>
             </Container>

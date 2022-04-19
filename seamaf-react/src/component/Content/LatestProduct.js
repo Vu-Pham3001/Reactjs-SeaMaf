@@ -19,7 +19,6 @@ export default function LatestProduct() {
             )
         })
     }, [])
-    // console.log(products)
 
     const settings = {
         dots: true,

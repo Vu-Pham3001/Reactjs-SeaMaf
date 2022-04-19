@@ -34,6 +34,7 @@ export default function AddProduct() {
         createFormData.append('sale' , sale)
         createFormData.append('is_top' , isTop)
         createFormData.append('categori_id', categoriId)
+        createFormData.append('img', img)
 
         const response = await axios({
             method: "post",
@@ -43,6 +44,7 @@ export default function AddProduct() {
         })
         .then(res => (alert('Tao danh muc thanh cong')))
     }
+
     return(
         <Grid item xs={9} sm={9} md={9}>
             <Typography
@@ -81,7 +83,6 @@ export default function AddProduct() {
                     <TextField
                         type="file"
                         name='img'
-                        // value={img}
                         sx={{marginTop: '3%', width:'85%'}}
                         onChange={(event) => setImg(event.target.files[0])}
                     />

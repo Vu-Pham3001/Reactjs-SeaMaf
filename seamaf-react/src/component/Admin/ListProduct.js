@@ -14,8 +14,9 @@ export default function ListProduct() {
 
     const [eidt, setEdit] = useState()
 
-    const handleDeleteProduct = (param) => {
-        
+    const handleDeleteProduct = (id) => {
+        axios.post('http://localhost:8000/api/admin/listmenu/delete', {id})
+        .then(res => alert('thanh cong'))
     }
 
     const columns = [
@@ -41,7 +42,7 @@ export default function ListProduct() {
             renderCell: (param) => (
                 <>
                     <Link to={'/admin/editproduct/' + param.id}><GridActionsCellItem icon={<EditIcon />} lable="Edit" /></Link>
-                    <GridActionsCellItem icon={<DeleteIcon />} lable="Delete" onClick={handleDeleteProduct} />
+                    <GridActionsCellItem icon={<DeleteIcon />} lable="Delete" onClick={() => handleDeleteProduct(param.id)} />
                 </>
             )
         }

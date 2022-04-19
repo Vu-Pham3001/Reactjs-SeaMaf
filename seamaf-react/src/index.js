@@ -12,8 +12,10 @@ import ProductDetail from './component/Product/ProductDetail'
 import Admin from './component/Admin/Admin';
 import ListProduct from './component/Admin/ListProduct';
 import AddProduct from './component/Admin/AddProduct';
-import ListUSer from './component/Admin/ListUser';
 import EditProduct from './component/Admin/EditProduct';
+import ListUser from './component/Admin/ListUser';
+import Cart from './component/Cart/Cart';
+import CartUser from './component/Admin/CartUser';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -27,6 +29,9 @@ ReactDOM.render(
           <Route path='/product-detail' element= {<Outlet/>}>
             <Route path=":id" element={<ProductDetail />} />
           </Route>
+          <Route path='/cart' element={<Outlet />}>
+            <Route path=':id' element={<Cart />} />
+          </Route>
         </Route>
 
         <Route path='/admin' element={<Admin />}>
@@ -35,7 +40,10 @@ ReactDOM.render(
           <Route path='editproduct' element={<Outlet />}>
             <Route path=':id' element={<EditProduct />} />
           </Route>
-          <Route path='listuser' element={<ListUSer />} />
+          <Route path='listuser' element={<ListUser />} />
+          <Route path='cartuser' element={<Outlet />}>
+            <Route path=':id' element={<CartUser />}/>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

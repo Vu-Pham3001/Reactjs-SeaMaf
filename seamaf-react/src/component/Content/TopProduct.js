@@ -30,10 +30,10 @@ export default function TopProduct() {
             </Typography>
             <Grid container spacing={2}>
                 {products.map(product => (
-                    <Grid item xs={6} sm={4} md={3}
+                    <Grid key={product.id} item xs={6} sm={4} md={3}
                         sx={{display:{marginTop:'4%'}}}
                     >
-                        <div key={product.id}>
+                        <div>
                             <Link to={`/product-detail/${product.id}`} >
                                 <img className="product-latest" src={`http://localhost:8000/images/${product.img}`} alt="" width='98%' height='98%' />
                             </Link>

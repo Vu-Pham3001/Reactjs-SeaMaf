@@ -12,7 +12,9 @@ const Avata = styled('div')(({theme}) => ({
 
 export default function SideBar() {
     const [anchorEl, setAnchorEl] = React.useState(null);
+
     const open = Boolean(anchorEl);
+
     const handleClickPages = (event) => {
         document.querySelector(".box-pages").classList.toggle("box-pages-block");
     }
@@ -20,6 +22,10 @@ export default function SideBar() {
     const handleClickDashboard = (event) => {
         document.querySelector(".box-dashboard").classList.toggle("box-dashboard-block");
     }
+
+    const user = JSON.parse(localStorage.getItem('user'))
+
+    console.log(user)
     return(
         <Grid item xs={3} sm={3} md={3}>
             <Box
@@ -27,7 +33,7 @@ export default function SideBar() {
             >
                 <Avata>
                     <img src="/logo192.png" alt="" style={{borderRadius:'50%', border:'solid 1px #fff', width:'50px', height:'50px', marginRight:'10%'}}/>
-                    <p>Vu Pham</p>
+                    <p style={{color:'#fff'}}>{user.name}</p>
                 </Avata>
                 <ul className="" style={{color:'#fff'}}>
                     <li className="title-pages" style={{listStyle:'none'}} onClick={handleClickDashboard}>
@@ -53,9 +59,9 @@ export default function SideBar() {
                             <li style={{listStyle:'none', marginTop:'2%'}}>
                                 <Link to="listproduct" style={{color:'#fff', textDecoration:'none'}}>List Product</Link>
                             </li>
-                            <li style={{listStyle:'none', marginTop:'2%'}}>
+                            {/* <li style={{listStyle:'none', marginTop:'2%'}}>
                                 <Link to="editproduct" style={{color:'#fff', textDecoration:'none'}}>Edit Product</Link>
-                            </li>
+                            </li> */}
                             <li style={{listStyle:'none', marginTop:'2%'}}>
                                 <Link to="listuser" style={{color:'#fff', textDecoration:'none'}}>List User</Link>
                             </li>

@@ -4,11 +4,11 @@ import {DataGrid } from '@mui/x-data-grid';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 
 
-export default function ListProduct() {
+export default function ListUser() {
     const param = useParams()
 
     const columns = [
@@ -24,7 +24,6 @@ export default function ListProduct() {
         {
             field: 'updated_at',
             headerName: 'Updated_at',
-            // sortable: false,
             width: 160,
         },
         {
@@ -34,7 +33,7 @@ export default function ListProduct() {
             width: 100,
             renderCell: (param) => (
                 <>
-                    <GridActionsCellItem icon={<ShoppingCartIcon />} onClick={() => handleCart(param)} lable="Cart" />
+                    <Link to={'/admin/cartuser/' + param.id}><GridActionsCellItem icon={<ShoppingCartIcon />} lable="Cart" /></Link>
                 </>
             )
         },
@@ -43,17 +42,13 @@ export default function ListProduct() {
     const [users, setUsers] = useState([])
 
     useEffect(() =>{
-        axios.get('http://localhost:8000/listuser')
+        axios.get('http://localhost:8000/api/listuser')
             .then(res => {
                 return(
                     setUsers(res.data)
                 )
             })
     }, [])
-
-    const handleCart = () => {
-        
-    }
     return(
         <Grid item xs={9} sm={9} md={9}>
             <div style={{ height: 600, width: '100%' }}>

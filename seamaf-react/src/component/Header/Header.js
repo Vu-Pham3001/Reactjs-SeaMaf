@@ -18,18 +18,16 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { Button } from '@mui/material';
+import { TextField } from '@mui/material';
+import { Autocomplete } from '@mui/material';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
-    // borderRadius: theme.shape.borderRadius,
     borderRadius: '20px',
     backgroundColor: '#ccc',
 
-    // backgroundColor: alpha(theme.palette.common.white, 0.15),
-    // '&:hover': {
-    //   backgroundColor: alpha(theme.palette.common.white, 0.25),
-    // },
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
@@ -54,7 +52,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
-        // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
         transition: theme.transitions.create('width'),
         width: '100%',
@@ -90,18 +87,20 @@ export default function Header() {
 
     const [age, setAge] = React.useState('');
 
+    const [key, setKey] = React.useState([]);
+
     const handleChange = (event) => {
         setAge(event.target.value);
     };
+
+    React.useEffect(() => {
+        axios.get('http://localhost:8000/api/admin/listmenu')
+            .then(res=>setKey(res.data))
+    },[])
+
     const param = useParams()
 
-    // const handleSearch = () => {
-    //     axios.post('http://localhost:8000/search', {
-    //         param: {
-    //             keyword: param.key,
-    //         }
-    //     })
-    // }
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -157,7 +156,6 @@ export default function Header() {
                     color="inherit"
                 >
                     <Badge badgeContent={17} color="error">
-                    {/* <NotificationsIcon /> */}
                         <ShoppingBagOutlinedIcon />
                     </Badge>
                 </IconButton>
@@ -179,16 +177,18 @@ export default function Header() {
                         RVM SeaMaf
                     </Typography>
                     <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon
-                                // onClick={handleSearch}
-                            />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="RVM SeaMaf"
-                            inputProps={{ 'aria-label': 'search' }}
-                            sx={{color: '#000', width: '100%', }}
-                            name="key"
+                        <Autocomplete
+                            id="combo-box-demo"
+                            options={key}
+                            getOptionLabel={(option) => option.name}
+                            style={{ width: 500 }}
+                            renderInput={(params) => <TextField {...params} variant="outlined" placeholder='Search onRVM SeaMaf ...'/>}
+                            renderOption={(props, option) => {
+                                return ([<div key={option.id} className="link-search"><Link style={{width:'100%', color:'#000', textDecoration:'none'}} to={`/product-detail/${option.id}`}>
+                                    <img src={`http://localhost:8000/images/${option.img}`} width='50px' height='50px' />
+                                    {option.name}
+                                </Link></div>])
+                            }}
                         />
                     </Search>
                     <Box sx={{ flexGrow: 1 }} />
@@ -228,7 +228,10 @@ export default function Header() {
                                 <Typography
                                     color = "inherit"
                                 >
-                                    Shoping Cart
+                                    {user ?
+                                        <Link to={`/cart/${user.id}`} style={{color:'#000', textDecoration:'none', fontSize:'1rem'}}>Shoping Cart</Link> :
+                                        <Link to='/login' style={{color:'#000', textDecoration:'none', fontSize:'1rem'}}>Shoping Cart</Link>
+                                    }
                                 </Typography>
                             </Badge>
                         </IconButton>

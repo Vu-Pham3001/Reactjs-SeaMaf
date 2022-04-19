@@ -19,14 +19,16 @@ export default function ProductDetail() {
         })
     }, [params])
 
-    const handleAddCart = (id) => {
-        axios.post('http://localhost:8000/user/addcart' + id, {
-            data: {
-                product_id : 45,
-                status: 1,
-                quanlity:1
-            }
-        })
+    const user = JSON.parse(localStorage.getItem('user'))
+
+    const handleAddCart = () => {
+        let obj = {
+            product_id: Number(params['id']),
+            user_id: user.id
+        }
+        axios.post('http://localhost:8000/api/user/addcart',obj)
+        .catch(err => console.log(err))
+        .then(res=>alert('them san pham vao gio hang thanh cong'))
     }
     return(
         <Container>
@@ -54,9 +56,8 @@ export default function ProductDetail() {
                     <p>Availability: In Stock</p>
                     <Button
                         sx={{display:{backgroundColor:'#f51167', width:'30%'} }}
-                        onClick={handleAddCart(proDetail.id)}
+                        onClick={handleAddCart}
                     >
-                        {/* <Link>ADD TO CART</Link> */}
                         ADD TO CART
                     </Button>
                     <h3>Desciption</h3>
@@ -72,10 +73,10 @@ export default function ProductDetail() {
 
             <Grid container spacing={3}>
                 {cates.map(cate => (
-                    <Grid item xs={6} sm={4} md={3}
+                    <Grid key={cate.id} item xs={6} sm={4} md={3}
                         sx={{display:{marginTop:'4%'}}}
                     >
-                        <div key={cate.id}>
+                        <div >
                             <Link to={`/product-detail/${cate.id}`} >
                                 <img className="product-latest" src={`http://localhost:8000/images/${cate.img}`} alt="" width='98%' height='98%' />
                             </Link>
